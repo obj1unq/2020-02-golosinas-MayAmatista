@@ -1,0 +1,4 @@
+object mariano {
+	const golosinas = []
+}
+
