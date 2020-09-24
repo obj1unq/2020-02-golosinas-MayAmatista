@@ -1,0 +1,82 @@
+import golosinas.*
+
+describe "tests de mariano" {
+
+
+	var chocolatin = new Chocolatin(pesoInicial=100)
+	var caramelo = new Caramelo()
+	var bombon = new Bombon()
+	var alfajor = new Alfajor()
+	var chupetin = new Chupetin()
+	
+	fixture {
+		mariano.comprar(chocolatin)
+		mariano.comprar(caramelo)
+		mariano.comprar(bombon)
+	}
+
+	test "test comprar" {
+		assert.equals(3, mariano.golosinas().size())
+		assert.that(mariano.golosinas().contains(chocolatin))
+		assert.that(mariano.golosinas().contains(caramelo))
+		assert.that(mariano.golosinas().contains(bombon))
+	}
+	
+	test "desechar" {
+		mariano.desechar(chocolatin)
+		assert.equals(2, mariano.golosinas().size())
+		assert.that(mariano.golosinas().contains(caramelo))
+		assert.that(mariano.golosinas().contains(bombon))
+		assert.notThat(mariano.golosinas().contains(chocolatin))
+	}
+	
+	test "mordisco" {
+		assert.equals(100, chocolatin.peso())
+		assert.equals(5, caramelo.peso())
+		assert.equals(15, bombon.peso())
+		mariano.probarGolosinas()
+		assert.equals(98, chocolatin.peso())
+		assert.equals(4, caramelo.peso())
+		assert.equals(11, bombon.peso())
+	}
+	
+	test "hayGolosinasSinTac" {
+		assert.that(mariano.hayGolosinaSinTACC())
+		mariano.desechar(caramelo)
+		mariano.desechar(bombon)
+		assert.notThat(mariano.hayGolosinaSinTACC())
+	}
+
+	test "precios cuidados" {
+		assert.notThat(mariano.preciosCuidados())
+		mariano.desechar(chocolatin)
+		assert.that(mariano.preciosCuidados())
+	}
+	
+	test "golosinaDeSabor" {
+		assert.equals("frutilla", mariano.golosinaDeSabor("frutilla").gusto())		
+	}
+	
+	test "golosinasDeSabor" {											
+		assert.equals(#{caramelo, bombon}, mariano.golosinasDeSabor("frutilla"))		
+	}
+	
+	test "sabores" {											
+		assert.equals(#{"frutilla", "chocolate"}, mariano.sabores())		
+	}
+	
+	test "mas cara" {											
+		assert.equals(chocolatin, mariano.golosinaMasCara())		
+	}
+	
+	test "faltantes" {
+		assert.equals(#{alfajor, chupetin}, mariano.golosinasFaltantes(#{alfajor, bombon, chocolatin, chupetin}))
+	}
+	
+	test "sabores faltantes" {
+		assert.equals(#{"vainilla", "salame"}, mariano.gustosFaltantes(#{"salame", "chocolate", "frutilla" , "vainilla"}))
+	}
+	
+	
+}
+

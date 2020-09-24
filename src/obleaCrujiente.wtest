@@ -1,0 +1,36 @@
+import golosinas.*
+
+describe "test de chocolatin"{
+
+	var golosina = new ObleaCrujiente()
+	
+
+	test "peso" {
+		assert.equals(250, golosina.peso())
+	}
+	
+	test "precio" {
+		assert.equals(5, golosina.precio())
+	}
+	
+	test "mordisco" {
+		golosina.mordisco()
+		assert.equals(122, golosina.peso())
+		golosina.mordisco()
+		assert.equals(58, golosina.peso())
+		golosina.mordisco()
+		assert.equals(40.5, golosina.peso())
+		golosina.mordisco()
+		assert.equals(30.375, golosina.peso())
+	}
+	
+	
+	test "gusto" {
+		assert.equals("vainilla", golosina.gusto())
+	}
+	
+	test "libre de gluten" {
+		assert.notThat(golosina.libreGluten())	
+	}
+	
+}

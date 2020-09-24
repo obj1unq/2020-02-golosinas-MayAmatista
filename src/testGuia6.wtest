@@ -1,0 +1,26 @@
+import golosinas.*
+test "baniar bolosina" {
+
+	var caramelo = new Caramelo()
+	var bombon = new Bombon()
+	mariano.comprar(caramelo)
+	
+	mariano.baniar(caramelo)
+    mariano.baniar(bombon)
+    
+    assert.equals(2, mariano.golosinas().size())
+   
+   
+   //No es sencillo probar que quedaron las dos golosinas baniadas
+   //hago una cuenta con los precios de la golosina
+   	assert.equals( 10, mariano.golosinas().sum({g => g.precio()}))
+
+}
+
+test "distintos gustos de caramelo" {
+	
+	var caramelo = new Caramelo(gusto="chocolate")
+  	assert.equals( "chocolate", caramelo.gusto())
+	
+	
+}
