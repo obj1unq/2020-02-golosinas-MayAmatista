@@ -1,0 +1,44 @@
+import golosinas.*
+
+describe "test de chocolatin"{
+
+	var golosina = tutifrutti
+	
+	fixture {
+		golosina.libreGluten(true)
+	}
+
+	test "peso" {
+		
+		assert.equals(5, golosina.peso())
+	}
+	
+	test "precio" {
+		assert.equals(7, golosina.precio())
+		golosina.libreGluten(false)
+		assert.equals(10, golosina.precio())
+	}
+	
+	test "mordisco" {
+		golosina.mordisco()
+		assert.equals(5, golosina.peso())
+		assert.equals("chocolate", golosina.gusto())
+		golosina.mordisco()
+		assert.equals(5, golosina.peso())
+		assert.equals("naranja", golosina.gusto())
+		golosina.mordisco()
+		assert.equals(5, golosina.peso())
+		assert.equals("frutilla", golosina.gusto())
+		
+	}
+	
+	
+	test "gusto" {
+		assert.equals("frutilla", golosina.gusto())
+	}
+	
+	test "libre de gluten" {
+		assert.that(golosina.libreGluten())	
+	}
+	
+}

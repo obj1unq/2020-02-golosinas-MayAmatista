@@ -1,0 +1,40 @@
+import golosinas.*
+
+describe "test de golosina baniada"{
+
+	fixture {
+		golosinaBaniada.golosina(oblea)		
+	}
+
+	test "peso" {
+		assert.equals(254, golosinaBaniada.peso())
+	}
+	
+	test "precio" {
+		assert.equals(7, golosinaBaniada.precio())
+	}
+	
+	test "mordisco" {
+		golosinaBaniada.mordisco()
+		assert.equals(127, golosinaBaniada.peso())
+		golosinaBaniada.mordisco()
+		assert.equals(62.5, golosinaBaniada.peso())
+	}
+	
+	
+	test "gusto" {
+		assert.equals("vainilla", golosinaBaniada.gusto())
+	}
+	
+	test "libre de gluten" {
+		assert.notThat(golosinaBaniada.libreGluten())	
+	}
+	
+	test "libreTACC y gusto con otro relleno" {
+		golosinaBaniada.golosina(bombon)
+		assert.that(golosinaBaniada.libreGluten())	
+		assert.equals("frutilla", golosinaBaniada.gusto())	
+		
+	}
+	
+}
