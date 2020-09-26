@@ -18,7 +18,7 @@ describe "test de bombon" {
 	}
 	
 	test "gusto" {
-		assert.equals("frutilla", bombon.gusto())
+		assert.equals(frutilla, bombon.gusto())
 	}
 	
 	test "libre de gluten" {
