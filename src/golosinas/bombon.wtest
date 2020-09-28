@@ -1,4 +1,5 @@
 import golosinas.*
+import mariano.*
 
 describe "test de bombon" {
 

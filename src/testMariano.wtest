@@ -1,0 +1,84 @@
+import golosinas.golosinas.*
+import mariano.*
+
+/*## Tests de Mariano
+Armar un test en el que Mariano compre el chocolatin, el caramelo y el bombón. Probar cada método descripto en el enunciado. 
+En particular, para `golosinasFaltantes` probar con `#{alfajor, bombon, chocolatin, chupetin}`, y para `gustosFaltantes`,
+*  con `#{"melón", "chocolate", "frutilla" , "vainilla"}`.
+ */
+test "Mariano compra un alfajor" {
+	mariano.comprar(alfajor)
+	assert.equals([alfajor], mariano.golosinas())
+
+}
+test "Mariano desecha una golosina"{
+	mariano.comprar(alfajor)
+	mariano.comprar(chupetin)
+	mariano.desechar(alfajor)
+	assert.equals([chupetin], mariano.golosinas())
+	
+}
+test "Cantidad de golosinas de Mariano"{
+	mariano.comprar(alfajor)
+	mariano.comprar(chupetin)
+	assert.equals(2,mariano.cantidadDeGolosinas())
+}
+test "Mariano tiene un alfajor "{
+	mariano.comprar(alfajor)
+	assert.that(mariano.tieneLaGolosina(alfajor))
+}
+test "Mariano prueba sus golosinas"{
+	mariano.comprar(alfajor)
+	mariano.comprar(pastillaTuttiFrutti)
+	mariano.probarGolosinas()
+	assert.equals(240,alfajor.peso())
+	assert.equals(chocolate,pastillaTuttiFrutti.gusto())
+}
+test "Mariano tiene al menos una golosina libre de gluten en su bolsa"{
+	mariano.comprar(bombon)
+	mariano.comprar(alfajor)
+	assert.that(mariano.hayGolosinaSinTACC())
+}
+test "Mariano tiene golosinas de precios cuidados"{
+	baniada.base(oblea)
+	mariano.comprar(baniada)
+	mariano.comprar(chupetin)
+	assert.that(mariano.preciosCuidados())
+}
+test "Mariano golosina de sabor naranja"{
+	mariano.comprar(chupetin)
+	mariano.comprar(bombon)
+	assert.equals(chupetin, mariano.golosinaDeSabor(naranja))
+}
+test"Los sabores en la bolsa de Mariano sin repetidos"{
+	mariano.comprar(chupetin)
+	mariano.comprar(chocolatin)
+	mariano.comprar(alfajor)
+	mariano.comprar(oblea)
+	assert.equals(#{naranja,chocolate,vainilla},mariano.sabores())
+}
+test "La golosina mas cara"{
+	chocolatin.pesoInicial(2)
+	mariano.comprar(chupetin)
+	mariano.comprar(chocolatin)
+	mariano.comprar(alfajor)
+	mariano.comprar(oblea)
+	assert.equals(alfajor, mariano.golosinaMasCara())
+}
+test "Peso de golosinas"{
+	chocolatin.pesoInicial(2)
+	mariano.comprar(chupetin)
+	mariano.comprar(chocolatin)
+	mariano.comprar(alfajor)
+	mariano.comprar(oblea)
+	assert.equals(559, mariano.pesoGolosinas())
+}
+test "golosinas faltantes"{
+	mariano.comprar(chupetin)
+	mariano.comprar(alfajor)
+	assert.equals(#{bombon,pastillaTuttiFrutti},mariano.golosinasFaltantes(#{bombon,pastillaTuttiFrutti,chupetin}))
+}
+test "gustos faltantes"{
+	mariano.comprar(alfajor)
+	assert.equals(#{naranja},mariano.gustosFaltantes(#{naranja,chocolate}))
+}

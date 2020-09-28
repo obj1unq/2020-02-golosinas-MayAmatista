@@ -52,17 +52,9 @@ object oblea{
 	method precio() { return 1}
 	method peso() { return peso }
 	method mordisco(){ 
-	
-//		if (self.pesaMasDe70()) {
-//			peso -= peso * 0.5
-//		}
-//		else { 
-//			peso -= peso * 0.25
-//		}
-	
-		peso -= peso * if (self.pesaMasDe70()) 0.5 else 0.25
-	
+	peso -= peso * if (self.pesaMasDe70()) 0.5 else 0.25
 	}
+	
 	method gusto() { return vainilla }
 	method libreGluten() { return false }
 	
@@ -72,6 +64,13 @@ object oblea{
 }
 
 object chocolatin{
+/*#### Chocolatín
+El peso inicial es desconocido, lo asigna el usuario. 
+El precio es de $0,50 por cada gramo de peso inicial.
+ No es libre de gluten. Obviamente, su gusto es chocolate.   
+Pierde 2 gramos por mordisco.   
+**¡Atención!** El precio es según el _peso inicial_, no debe cambiar con los mordiscos. */
+
 	var pesoInicial 
 	var peso 
 	
@@ -83,22 +82,19 @@ object chocolatin{
 	method precio(){
 		return pesoInicial * 0.5
 	}
-	
+	method gusto() {return chocolate}
 	method peso() {return peso}
 	method libreGluten() { return false }
 	method mordisco(){ peso = (peso - 2).max(0) }
 }
-/* #### Golosina bañada
-Se arma a partir de una _golosina de base_.
-El peso inicial es el de la golosina de base más 4 gramos que es lo que pesa el bañado. 
-El precio es el de la golosina de base más 2 pesos. El gusto es el de la golosina de base. 
-De la misma manera, es libre de gluten si lo es su golosina base.
-Con cada mordisco se da un mordisco a la golosina de base. 
-Además, en el primer mordisco pierde 2 gramos de
-bañado, y en el segundo los otros dos.*/
-
 
 object baniada {
+/*#### Golosina bañada
+Se arma a partir de una _golosina de base_. <br>
+El peso inicial es el de la golosina de base más 4 gramos que es lo que pesa el bañado. El precio es el de la golosina de base más 2 pesos. El gusto es el de la golosina de base. 
+De la misma manera, es libre de gluten si lo es su golosina base.   
+Con cada mordisco se da un mordisco a la golosina de base. Además, en el primer mordisco pierde 2 gramos de
+bañado, y en el segundo los otros dos. */
 	
 	var property base = bombon
 	var baniado = 4
@@ -131,41 +127,37 @@ En cada mordisco cambia el sabor, pasa de frutilla a chocolate, de ahí a naranj
 
 object pastillaTuttiFrutti {
 	const peso = 5
-	
 	const sabores = [frutilla, chocolate, naranja]
 	var posicionSaborActual = 0
-	
 	var property libreGluten = false
 	
 	method precio() {
 		return if (self.libreGluten()) 10 else 7 
 	 }
 	method peso() {return peso}
+	
 	method gusto() {return sabores.get(posicionSaborActual)}
 	
 	method mordisco(){
 		posicionSaborActual = (posicionSaborActual + 1) % sabores.size()
-		/////
+	}
+	
+}
+/*
+------------------- VERSION COLECCIONES + IF--------------------------------
+
+
+		/*method mordisco(){ // 
 		posicionSaborActual++
 		if(posicionSaborActual >= sabores.size()) {
-			posicionSaborActual=0
+			posicionSaborActual = 0
 		}
-		
-	}
-//	 Version con if anidados  
-//	
-//		method mordisco(){
-//		if (self.gusto() == frutilla){
-//			sabor = chocolate}
-//			else if (self.gusto()== chocolate){
-//				sabor = naranja}
-//				else if (self.gusto() == naranja){
-//					sabor = frutilla
-//				}
-//			}
-}
 
-/*object pastillaTuttiFrutti { //VERSION VERY DIFFICULT PERO SUPER PRO
+
+------------------- VERSION POLIMORFISMO-------------------------------------
+
+
+object pastillaTuttiFrutti {
 	const peso = 5
 	var sabor = frutilla
 	var property libreGluten = false
@@ -176,6 +168,20 @@ object pastillaTuttiFrutti {
 	method mordisco(){
 		sabor = sabor.proximoGusto()
 	}
+	
+	
+---------------- VERSION CON IF ANIDADOS (no recomendable)-------------------
+ 
+ 
+		method mordisco(){
+		if (self.gusto() == frutilla){
+			sabor = chocolate}
+			else if (self.gusto() == chocolate){
+				sabor = naranja}
+				else if (self.gusto() == naranja){
+					sabor = frutilla
+				}
+			}
 	
 }*/
 
